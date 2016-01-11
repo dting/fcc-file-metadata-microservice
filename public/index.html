@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>File Metadata Microservice Demo</title>
+</head>
+<body>
+<h1>FCC File Metadata Microservice Demo</h1>
+<p>Form posts to /api/file-meta-data and returns json object with file metadata.</p>
+<form id="form" enctype="multipart/form-data">
+  <input type="file" name="upl" multiple required>
+  <input type="submit">&nbsp<span id="status">ready</span>
+</form>
+<div id="metadata"></div>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script type="text/javascript">
+  function toggleStatus() {
+    var status = $('#status');
+    if (status.html() === 'ready') {
+      $('input[type=submit]').prop('disabled', true);
+      status.html('uploading');
+    } else {
+      $('input[type=submit]').prop('disabled', false);
+      status.html('ready');
+    }
+  }
+  $('#form').submit(function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleStatus();
+
+    $.ajax({
+      url: '/api/file-meta-data',
+      type: 'post',
+      data: new FormData( this ),
+      processData: false,
+      contentType: false,
+      success: function(res) {
+        $('#metadata').prepend('<pre>' + JSON.stringify(res, null, 2) + '</pre>');
+        $('#form').closest('form').get(0).reset();
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        $('#metadata').prepend('<pre>' + textStatus + '</pre>');
+      },
+      complete: function() {
+        toggleStatus();
+      }
+    });
+  })
+</script>
+</body>
+</html>

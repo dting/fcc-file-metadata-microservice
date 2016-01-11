@@ -1,0 +1,28 @@
+{
+  "name": "file-metadata-microservice",
+  "version": "0.1.0",
+  "description": "FCC file metadata microservice",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "mongoose": "^4.3.4",
+    "multer": "^1.1.0",
+    "multer-autoreap": "0.0.9"
+  },
+  "engines": {
+    "node": "0.12.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dting/fcc-file-metadata-microservice"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
+}
